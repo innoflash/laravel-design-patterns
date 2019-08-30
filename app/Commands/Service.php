@@ -13,7 +13,7 @@ class Service extends MakeFile
      *
      * @var string
      */
-    protected $signature = 'pattern:service';
+    protected $signature = 'pattern:service {model : The model you wanna write a service for}';
 
     /**
      * The description of the command.
@@ -29,12 +29,12 @@ class Service extends MakeFile
 
     public function getStubs()
     {
-        // TODO: Implement getStub() method.
+        return __DIR__ . '/stubs/service.stub';
     }
 
     public function getModel()
     {
-        // TODO: Implement getModelName() method.
+        return $this->argument('model');
     }
 
     public function getPatternType()

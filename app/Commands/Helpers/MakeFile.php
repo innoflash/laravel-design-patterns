@@ -64,7 +64,7 @@ abstract class MakeFile extends Command
 
     function initializeDirectories()
     {
-        $parentPath = getcwd() . '/app' . $this->getPatternType();
+        $parentPath = app_path($this->getPatternType());
         if (!$this->filesystem->isDirectory($parentPath)) {
             $this->filesystem->makeDirectory($parentPath, 0755, true);
             $this->info($this->getPatternType() . ' folder has been created!');
@@ -72,19 +72,6 @@ abstract class MakeFile extends Command
             $this->info($this->getPatternType() . ' already prepared!');
         }
         $this->parentDir = $parentPath;
-    }
-
-    public static function camelCase($str, array $noStrip = [])
-    {
-        // non-alpha and non-numeric characters become spaces
-        $str = preg_replace('/[^a-z0-9' . implode("", $noStrip) . ']+/i', ' ', $str);
-        $str = trim($str);
-        // uppercase the first character of each word
-        $str = ucwords($str);
-        $str = str_replace(" ", "", $str);
-        $str = lcfirst($str);
-
-        return $str;
     }
 
     protected function getContent()
@@ -96,25 +83,27 @@ abstract class MakeFile extends Command
             $this->modelNamespace = '/' . implode('/', $this->namePieces) . '/';
         }
 
-        if ($this->getPatternType() === DesignType::REPOSITORY) {
-            //wiring the interface
-            $interfaceContent = $this->replaceContent($this->filesystem->get($this->getStubs()[0]));
+        switch ($this->getPatternType()) {
+            case DesignType::REPOSITORY:
+                $interfaceContent = $this->replaceContent($this->filesystem->get($this->getStubs()[0]));
 
-            //wiring the eloquent model
-            $eloquentContent = $this->replaceContent($this->filesystem->get($this->getStubs()[1]));
+                $eloquentContent = $this->replaceContent($this->filesystem->get($this->getStubs()[1]));
 
-            $this->writeFile($this->modelName . 'Interface', $interfaceContent);
-            $this->writeFile($this->modelName . 'Eloquent', $eloquentContent);
-
-        } else {
-
+                $this->writeFile($this->modelName . 'Interface', $interfaceContent);
+                $this->writeFile($this->modelName . 'Eloquent', $eloquentContent);
+                break;
+            case DesignType::SERVICE:
+                $serviceContent = $this->replaceContent($this->filesystem->get($this->getStubs()));
+                $this->writeFile($this->modelName . 'Service', $serviceContent);
+                break;
         }
+
     }
 
     protected function writeFile(string $name, string $content)
     {
         if (file_exists($this->patternDir . $name . '.php'))
-            $this->warn($name . 'already exist');
+            $this->warn($name . ' already exist');
         else {
             $this->filesystem->put($this->patternDir . $name . '.php', $content);
             $this->info($name . ' files created.');

@@ -1,0 +1,22 @@
+<?php
+
+
+namespace App\Service\ModelName;
+use App\$namespaceModelName;
+
+
+class ModelNameService
+{
+    /**
+     * @var App\$namespaceModelName
+     */
+    private $modelObject;
+
+    /**
+     * ModelNameService constructor.
+     */
+    public function __construct(ModelName $modelObject)
+    {
+        $this->modelObject = $modelObject;
+    }
+}
