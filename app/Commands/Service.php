@@ -13,7 +13,7 @@ class Service extends MakeFile
      *
      * @var string
      */
-    protected $signature = 'pattern:service {model : The model you wanna write a service for}';
+    protected $signature = 'pattern:service {model_name : The model you wanna write a service for}';
 
     /**
      * The description of the command.
@@ -34,11 +34,17 @@ class Service extends MakeFile
 
     public function getModel()
     {
-        return $this->argument('model');
+        return $this->argument('model_name');
     }
 
     public function getPatternType()
     {
         return DesignType::SERVICE;
+    }
+
+    public function initializePatternFiles()
+    {
+        $serviceContent = $this->replaceContent($this->getFilesystem()->get($this->getStubs()));
+        $this->writeFile($this->getModelName() . 'Service', $serviceContent);
     }
 }

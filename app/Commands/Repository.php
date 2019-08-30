@@ -13,7 +13,7 @@ class Repository extends MakeFile
      *
      * @var string
      */
-    protected $signature = 'pattern:repository {model : The model you wanna make a repo for}';
+    protected $signature = 'pattern:repository {model_name : The model you wanna make a repo for}';
 
     /**
      * The description of the command.
@@ -48,11 +48,21 @@ class Repository extends MakeFile
             return $this->argument('model');
         else
             return studly_case($this->argument('model'));*/
-        return studly_case($this->argument('model'));
+        return studly_case($this->argument('model_name'));
     }
 
     public function getPatternType()
     {
         return DesignType::REPOSITORY;
+    }
+
+    public function initializePatternFiles()
+    {
+        $interfaceContent = $this->replaceContent($this->getFilesystem()->get($this->getStubs()[0]));
+
+        $eloquentContent = $this->replaceContent($this->getFilesystem()->get($this->getStubs()[1]));
+
+        $this->writeFile($this->getModelName() . 'Interface', $interfaceContent);
+        $this->writeFile($this->getModelName() . 'Eloquent', $eloquentContent);
     }
 }

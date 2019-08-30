@@ -15,6 +15,8 @@ abstract class MakeFile extends Command
 
     abstract public function getPatternType();
 
+    abstract public function initializePatternFiles();
+
     protected $filesystem;
 
     protected $modelName;
@@ -34,6 +36,7 @@ abstract class MakeFile extends Command
         $this->initializeDirectories();
         $this->prepareModel();
         $this->createPatternFolder();
+        $this->initializePatternFiles();
         $this->getContent();
     }
 
@@ -82,22 +85,6 @@ abstract class MakeFile extends Command
             array_pop($this->namePieces);
             $this->modelNamespace = '/' . implode('/', $this->namePieces) . '/';
         }
-
-        switch ($this->getPatternType()) {
-            case DesignType::REPOSITORY:
-                $interfaceContent = $this->replaceContent($this->filesystem->get($this->getStubs()[0]));
-
-                $eloquentContent = $this->replaceContent($this->filesystem->get($this->getStubs()[1]));
-
-                $this->writeFile($this->modelName . 'Interface', $interfaceContent);
-                $this->writeFile($this->modelName . 'Eloquent', $eloquentContent);
-                break;
-            case DesignType::SERVICE:
-                $serviceContent = $this->replaceContent($this->filesystem->get($this->getStubs()));
-                $this->writeFile($this->modelName . 'Service', $serviceContent);
-                break;
-        }
-
     }
 
     protected function writeFile(string $name, string $content)
@@ -117,4 +104,53 @@ abstract class MakeFile extends Command
         $content = str_replace('$modelObject', '$' . camel_case($this->modelName), $content);
         return $content;
     }
+
+    /**
+     * @return Filesystem
+     */
+    public function getFilesystem(): Filesystem
+    {
+        return $this->filesystem;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModelName()
+    {
+        return $this->modelName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModelNamespace()
+    {
+        return $this->modelNamespace;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNamePieces()
+    {
+        return $this->namePieces;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPatternDir()
+    {
+        return $this->patternDir;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParentDir()
+    {
+        return $this->parentDir;
+    }
+
 }
