@@ -97,13 +97,15 @@ abstract class MakeFile extends Command
         }
 
         if ($this->getPatternType() === DesignType::REPOSITORY) {
-            $interfaceContent = $this->filesystem->get($this->getStubs()[0]);
-            $interfaceContent = str_replace('$namespace', $this->modelNamespace, $interfaceContent);
-            $interfaceContent = str_replace('ModelName', $this->modelName, $interfaceContent);
-            $interfaceContent = str_replace('$modelObject', '$' . camel_case($this->modelName), $interfaceContent);
+            //wiring the interface
+            $interfaceContent = $this->replaceContent($this->filesystem->get($this->getStubs()[0]));
+
+            //wiring the eloquent model
+            $eloquentContent = $this->replaceContent($this->filesystem->get($this->getStubs()[1]));
 
             $this->writeFile($this->modelName . 'Interface', $interfaceContent);
-            // dd($interfaceContent);
+            $this->writeFile($this->modelName . 'Eloquent', $eloquentContent);
+
         } else {
 
         }
@@ -111,9 +113,19 @@ abstract class MakeFile extends Command
 
     protected function writeFile(string $name, string $content)
     {
+        if (file_exists($this->patternDir . $name . '.php'))
+            $this->warn($name . 'already exist');
+        else {
+            $this->filesystem->put($this->patternDir . $name . '.php', $content);
+            $this->info($name . ' files created.');
+        }
+    }
 
-        $this->filesystem->put($this->patternDir . $name . '.php', $content);
-        dd($content);
-        $this->info('Pattern files created.');
+    protected function replaceContent($content)
+    {
+        $content = str_replace('$namespace', $this->modelNamespace, $content);
+        $content = str_replace('ModelName', $this->modelName, $content);
+        $content = str_replace('$modelObject', '$' . camel_case($this->modelName), $content);
+        return $content;
     }
 }

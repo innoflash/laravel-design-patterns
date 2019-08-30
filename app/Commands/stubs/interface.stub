@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Repositories;
+namespace App\Repositories\ModelName;
 use App\$namespaceModelName;
 
 interface ModelNameInterface
@@ -22,7 +22,7 @@ interface ModelNameInterface
 
     /**
      * Updates the given model
-     * @param \App\ModelName $modelObject
+     * @param \App\$namespaceModelName $modelObject
      * @param array $attributes
      * @return mixed
      */
@@ -30,7 +30,7 @@ interface ModelNameInterface
 
     /**
      * Deletes the given model
-     * @param \App\ModelName $modelObject
+     * @param \App\$namespaceModelName $modelObject
      * @return mixed
      */
     public function delete(ModelName $modelObject);

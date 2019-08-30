@@ -3,3 +3,5 @@
 /.vscode
 /.vagrant
 /app/*.php
+/app/Repositories
+/app/Services
