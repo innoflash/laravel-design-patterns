@@ -33,8 +33,10 @@ Command creates the repo folder under Repositories in the model name folder
 
 ![Repo folder](images/repo_folder.PNG)
 This creates an ModelEloquent file that you are gonna have to override when you are passing your app login
+
 ![Repo Eloquent](images/repo_eloq.PNG)
 Also it creates an interface that`s used in the Eloquent file. You can add or remove more abstract methods to this to further customize your repo
+
 ![Repo Interface](images/repo_interface.PNG)
 
 ### Create a service
@@ -53,6 +55,8 @@ ldp pattern:service User
 ```
 links ```App\User```
 Command creates the service file Services with your model name concatenated with "Service"
+
 ![Service file](images/service_folder.PNG)
 This is how the service class created looks like
+
 ![Service stub](images/service_stub.PNG)
