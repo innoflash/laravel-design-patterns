@@ -13,7 +13,15 @@ Laravel Design patterns
 <h4> <center>This is a <bold>community project</bold> and not an official Laravel one </center></h4>
 
 Laravel Design Patterns was created by, and is maintained by [Innocent Mazando](https://github.com/innoflash), and is console application running on composer used to create Laravel Repository and Service pattern. 
+## Installation
 
+Install via composer.
+
+Note: For windows user, first run `composer global update`
+
+```bash
+composer global require innoflash/laravel-design-patterns
+```
 ### Create a repository
 ```sh
 ldp pattern:repository {model_name}
