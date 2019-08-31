@@ -6,7 +6,7 @@ use App\Commands\Helpers\DesignType;
 use App\Commands\Helpers\MakeFile;
 use Illuminate\Console\Scheduling\Schedule;
 
-class Repository extends MakeFile
+class RepositoryCommand extends MakeFile
 {
     /**
      * The signature of the command.

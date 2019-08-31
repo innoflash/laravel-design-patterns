@@ -107,7 +107,7 @@ abstract class MakeFile extends Command
     {
         $content = str_replace('$namespace', $this->modelNamespace, $content);
         $content = str_replace('ModelName', $this->modelName, $content);
-        $content = str_replace('$modelObject', '$' . camel_case($this->modelName), $content);
+        $content = str_replace('modelObject', camel_case($this->modelName), $content);
         return $content;
     }
 

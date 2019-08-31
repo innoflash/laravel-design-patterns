@@ -6,7 +6,7 @@ use App\Commands\Helpers\DesignType;
 use App\Commands\Helpers\MakeFile;
 use Illuminate\Console\Scheduling\Schedule;
 
-class Service extends MakeFile
+class ServiceCommand extends MakeFile
 {
     /**
      * The signature of the command.

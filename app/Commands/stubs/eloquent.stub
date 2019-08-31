@@ -10,7 +10,7 @@ class ModelNameEloquent implements ModelNameInterface
     private $modelObject;
     public function __construct(ModelName $modelObject)
     {
-        $this->model = $modelObject;
+        $this->modelObject = $modelObject;
     }
 
     /**
