@@ -17,6 +17,8 @@ abstract class MakeFile extends Command
 
     abstract public function initializePatternFiles();
 
+    abstract public function getCreatedModelFolder();
+
     protected $filesystem;
 
     protected $modelName;
@@ -35,9 +37,12 @@ abstract class MakeFile extends Command
     {
         $this->initializeDirectories();
         $this->prepareModel();
-        $this->createPatternFolder();
-        $this->initializePatternFiles();
+        if ($this->getCreatedModelFolder())
+            $this->createPatternFolder();
+        else
+            $this->patternDir = $this->parentDir;
         $this->getContent();
+        $this->initializePatternFiles();
     }
 
     protected function prepareModel()
@@ -45,11 +50,12 @@ abstract class MakeFile extends Command
         $strRlc = [
             '/',
             '//',
-            '"\"'
+            '\\',
+            '\\\\',
         ];
 
-        $fullName = str_replace($strRlc, '/', $this->getModel());
-        $this->namePieces = explode('/', $fullName);
+        $fullName = str_replace($strRlc, '\\', $this->getModel());
+        $this->namePieces = explode('\\', $fullName);
         if (sizeof($this->namePieces) === 1)
             $this->modelName = $fullName;
         else
@@ -83,7 +89,7 @@ abstract class MakeFile extends Command
             $this->modelNamespace = '';
         else {
             array_pop($this->namePieces);
-            $this->modelNamespace = '/' . implode('/', $this->namePieces) . '/';
+            $this->modelNamespace = implode('\\', $this->namePieces) . '\\';
         }
     }
 

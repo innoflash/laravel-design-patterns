@@ -18,7 +18,7 @@ interface ModelInterface
      * @param array $attributes
      * @return mixed
      */
-    public function create(array $attributes);
+    public function create(array $attributes) : Model;
 
     /**
      * Updates the given model

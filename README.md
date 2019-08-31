@@ -1,6 +1,6 @@
-<p align="center">
-    <img title="Laravel Zero" height="100" src="https://raw.githubusercontent.com/laravel-zero/docs/master/images/logo/laravel-zero-readme.png" />
-</p>
+<h1>
+Laravel Design patterns
+</h1>
 
 <p align="center">
   <a href="https://travis-ci.org/laravel-zero/framework"><img src="https://img.shields.io/travis/laravel-zero/framework/stable.svg" alt="Build Status"></img></a>
@@ -12,26 +12,47 @@
 
 <h4> <center>This is a <bold>community project</bold> and not an official Laravel one </center></h4>
 
-Laravel Zero was created by, and is maintained by [Nuno Maduro](https://github.com/nunomaduro), and is a micro-framework that provides an elegant starting point for your console application. It is an **unofficial** and customized version of Laravel optimized for building command-line applications.
+Laravel Design Patterns was created by, and is maintained by [Innocent Mazando](https://github.com/innoflash), and is console application running on composer used to create Laravel Repository and Service pattern. 
 
-- Built on top of the [Laravel](https://laravel.com) components.
-- Optional installation of Laravel [Eloquent](https://laravel-zero.com/docs/database/), Laravel [Logging](https://laravel-zero.com/docs/logging/) and many others.
-- Supports interactive [menus](https://laravel-zero.com/docs/build-interactive-menus/) and [desktop notifications](https://laravel-zero.com/docs/send-desktop-notifications/) on Linux, Windows & MacOS.
-- Ships with a [Scheduler](https://laravel-zero.com/docs/task-scheduling/) and  a [Standalone Compiler](https://laravel-zero.com/docs/build-a-standalone-application/).
-- Integration with [Collision](https://github.com/nunomaduro/collision) - Beautiful error reporting
+### Create a repository
+```sh
+ldp pattern:repository {model_name}
+```
+The ```model_name``` is the model you wanna create a repository for
+eg
+```dotenv
+ldp pattern:repository Models/User
+``` 
+links a the ```App\Models\User```
+And likewise 
+```
+ldp pattern:repository User
+```
+links ```App\User```
+Command creates the repo folder under Repositories in the model name folder
 
-------
+![Repo folder](images/repo_folder.PNG)
+This creates an ModelEloquent file that you are gonna have to override when you are passing your app login
+![Repo Eloquent](images/repo_eloq.PNG)
+Also it creates an interface that`s used in the Eloquent file. You can add or remove more abstract methods to this to further customize your repo
+![Repo Interface](images/repo_interface.PNG)
 
-## Documentation
-
-For full documentation, visit [laravel-zero.com](https://laravel-zero.com/).
-
-## Support the development
-**Do you like this project? Support it by donating**
-
-- PayPal: [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=66BYDWAT92N6L)
-- Patreon: [Donate](https://www.patreon.com/nunomaduro)
-
-## License
-
-Laravel Zero is an open-source software licensed under the [MIT license](https://github.com/laravel-zero/laravel-zero/blob/stable/LICENSE.md).
+### Create a service
+```dotenv
+ldp pattern:service {model_name}
+```
+The ```model_name``` is the model you wanna create a repository for
+eg
+```dotenv
+ldp pattern:service Models/User
+```
+links a the ```App\Models\User```
+And likewise 
+```
+ldp pattern:service User
+```
+links ```App\User```
+Command creates the service file Services with your model name concatenated with "Service"
+![Service file](images/service_folder.PNG)
+This is how the service class created looks like
+![Service stub](images/service_stub.PNG)

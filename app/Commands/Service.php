@@ -47,4 +47,9 @@ class Service extends MakeFile
         $serviceContent = $this->replaceContent($this->getFilesystem()->get($this->getStubs()));
         $this->writeFile($this->getModelName() . 'Service', $serviceContent);
     }
+
+    public function getCreatedModelFolder()
+    {
+        return false;
+    }
 }

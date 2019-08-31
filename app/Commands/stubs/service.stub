@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Service\ModelName;
+namespace App\Services;
 use App\$namespaceModelName;
 
 

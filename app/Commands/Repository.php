@@ -65,4 +65,9 @@ class Repository extends MakeFile
         $this->writeFile($this->getModelName() . 'Interface', $interfaceContent);
         $this->writeFile($this->getModelName() . 'Eloquent', $eloquentContent);
     }
+
+    public function getCreatedModelFolder()
+    {
+       return true;
+    }
 }
