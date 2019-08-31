@@ -50,7 +50,7 @@
       "@php application app:rename"
     ]
   },
-  "minimum-stability": "dev",
+  "minimum-stability": "v.0.0.2",
   "prefer-stable": true,
   "bin": [
     "ldp"
